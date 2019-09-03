@@ -7,6 +7,7 @@ import com.baiwang.dataplatform.entity.CountBeanIn;
 import com.baiwang.dataplatform.entity.CountBeanOut;
 import com.baiwang.dataplatform.service.CountService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -32,7 +33,7 @@ public class Ceshi {
     }
 
     @RequestMapping(value = "/ceshi", method = RequestMethod.POST)
-    public CountBeanOut ceshi(@RequestBody CountBeanIn countBeanIn) {
+    public Object ceshi(@RequestBody CountBeanIn countBeanIn) {
 
         int totals = countService.count(countBeanIn);
         List<CountBean> list = countService.query(countBeanIn);
