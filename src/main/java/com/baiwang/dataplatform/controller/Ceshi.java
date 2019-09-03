@@ -7,7 +7,6 @@ import com.baiwang.dataplatform.entity.CountBeanIn;
 import com.baiwang.dataplatform.entity.CountBeanOut;
 import com.baiwang.dataplatform.service.CountService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 

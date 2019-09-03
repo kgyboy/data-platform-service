@@ -74,16 +74,18 @@
             <version>1.2.47</version>
         </dependency>
         <!--分页插件 -->
-      <!--<dependency>
+<!--
+        <dependency>
             <groupId>com.github.pagehelper</groupId>
             <artifactId>pagehelper</artifactId>
             <version>${pagehelper.version}</version>
-        </dependency>-->
+        </dependency>
         <dependency>
             <groupId>com.github.pagehelper</groupId>
             <artifactId>pagehelper-spring-boot-starter</artifactId>
             <version>1.2.4</version>
         </dependency>
+-->
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
