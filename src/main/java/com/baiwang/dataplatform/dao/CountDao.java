@@ -1,6 +1,7 @@
 package com.baiwang.dataplatform.dao;
 
 import com.baiwang.dataplatform.entity.CountBean;
+import com.baiwang.dataplatform.entity.CountBeanIn;
 
 import java.util.List;
 
@@ -12,5 +13,7 @@ import java.util.List;
  **/
 public interface CountDao {
 
-    List<CountBean> query(CountBean account);
+    List<CountBean> query(CountBeanIn countBeanIn);
+
+    int count(CountBeanIn countBeanIn);
 }
