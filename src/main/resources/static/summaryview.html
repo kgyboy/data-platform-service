@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<script type="text/javascript" src="js/common/jquery-2.1.4.js"></script>
+<script type="text/javascript" src="js/common/jquery-2.1.1.min.js"></script>
+<script type="text/javascript">
+    var params = localStorage.getItem("second");
+    var paramJson = JSON.parse(params);
+</script>
+<script type="text/javascript" src="js/common/redirect.js"></script>
+<script type="text/javascript" src="js/common/tools.js"></script>
+<script type="text/javascript" src="js/index/summaryview.js"></script>
+<script type="text/javascript" src="js/common/jquery.page.js"></script>
+<script type="text/javascript" src="js/common/DateFormat.js"></script>
+
+<link type="text/css" rel="stylesheet" href="css/common/table.css"/>
+<link type="text/css" rel="stylesheet" href="css/common/page.css"/>
+
+<head>
+    <meta charset="UTF-8">
+    <title>汇总视图</title>
+</head>
+<body>
+<table class="table">
+    <thead>
+    <th>税号</th>
+    <th>盘号</th>
+    <th>税盘数据量</th>
+    <th>中间件数据量</th>
+    <th>大数据数据量</th>
+    <th>起始时间</th>
+    <th>终止时间</th>
+    </thead>
+    <tbody id="contentHTML">
+
+    </tbody>
+</table>
+<div class="page">
+    <div class="tcdPageCode" id="pager"></div>
+</div>
+</body>
+</html>

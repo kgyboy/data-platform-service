@@ -26,9 +26,9 @@ public class ConnectionFactory {
     private static String HIVE_URL = "jdbc:hive2://192.168.6.64:10000/default";
 
     private static String DRIVER = "com.mysql.jdbc.Driver";
-    private static String URL = "jdbc:mysql://192.168.6.141:3306/contract?useUnicode=true&allowMultiQuerie=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&useSSL=false";
+    private static String URL = "jdbc:mysql://localhost:3306/bw?useUnicode=true&allowMultiQuerie=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&useSSL=false";
     private static String USERNAME = "root";
-    private static String PASSWORD = "localTest1717";
+    private static String PASSWORD = "root123";
 
 
     public static Connection getConnection() {

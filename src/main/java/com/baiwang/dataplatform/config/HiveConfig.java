@@ -12,7 +12,7 @@ public class HiveConfig {
 
     private static String driverName = "org.apache.hive.jdbc.HiveDriver";
 //    private static String url = "jdbc:hive2://192.168.6.64:10000/default";
-    private static String url = "jdbc:hive2://192.168.6.64:10000/default";
+    private static String url = "jdbc:hive2://192.168.6.92:10000/ymctest";
     //    private static String user = "";
     //    private static String password = "";
     private static String sql = "";
@@ -31,12 +31,13 @@ public class HiveConfig {
             Class.forName(driverName);
             conn = DriverManager.getConnection(url);
 //            stmt = conn.createStatement();
-            String sql = "SELECT count(1) FROM kylin_sales";
+            String sql = "SELECT count(1) FROM inoutput";
 //            sql = "SHOW TABLES";
 
             PreparedStatement statement = conn.prepareStatement(sql);
 
             ResultSet resultSet = statement.executeQuery();
+            System.out.println(sql);
 
             while (resultSet.next()) {
                 System.out.println(resultSet.getString(1));

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<script type="text/javascript" src="js/common/jquery-2.1.4.js"></script>
+<script type="text/javascript" src="js/common/jquery-2.1.1.min.js"></script>
+<script type="text/javascript">
+    var action = localStorage.getItem("tailaction");
+    var paramJson = null;
+    if (action != null && action == "jump"){
+        var params = localStorage.getItem("four");
+        paramJson = JSON.parse(params);
+    }
+</script>
+<script type="text/javascript" src="js/common/redirect.js"></script>
+<script type="text/javascript" src="js/common/tools.js"></script>
+<script type="text/javascript" src="js/index/summarydetail.js"></script>
+<script type="text/javascript" src="js/common/jquery.page.js"></script>
+<script type="text/javascript" src="js/common/DateFormat.js"></script>
+
+<link type="text/css" rel="stylesheet" href="css/common/table.css"/>
+<link type="text/css" rel="stylesheet" href="css/common/page.css"/>
+
+<head>
+    <meta charset="UTF-8">
+    <title>税号详情表</title>
+</head>
+<body>
+
+<div style="height: 49%;border: 1px red">
+    <table>
+        <tr>
+            <td>税号<input id="taxno"/></td>
+            <td>起始时间<input id="startDate"/></td>
+            <td>终止时间<input id="endDate"/></td>
+        </tr>
+        <tr>
+            <td>
+                <button id="cc">筛选</button>
+            </td>
+        </tr>
+    </table>
+    <table class="table">
+        <thead>
+        <th>日期</th>
+        <th>税号</th>
+        <th>盘号</th>
+        <th>登录时间</th>
+        <th>登录时长</th>
+        <th>版本</th>
+        <th>MAC地址</th>
+        <th>税盘数据总量</th>
+        <th>中间件数据总量</th>
+        <th>大数据平台数据总量</th>
+        </thead>
+        <tbody id="contentHTML">
+
+        </tbody>
+    </table>
+    <div class="page">
+        <div class="tcdPageCode" id="pager"></div>
+    </div>
+</div>
+</body>
+</html>

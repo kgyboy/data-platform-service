@@ -1,49 +1,71 @@
 package com.baiwang.dataplatform.entity;
 
 public class CountBean {
-	private int id;
-	private String contractCode;
-	private String createTime;
+    private String taxNo;
+    private String diskNo;
+    private String baseData;
+    private String middData;
+    private String dataData;
+    private String createDate;
 
-	public CountBean() {
-	}
 
-	public CountBean(int id, String contractCode, String createTime) {
-		this.id = id;
-		this.contractCode = contractCode;
-		this.createTime = createTime;
-	}
+    public CountBean() {
+    }
 
-	public int getId() {
-		return id;
-	}
+    public CountBean(String taxNo, String diskNo, String baseData, String middData, String dataData, String createDate) {
+        this.taxNo = taxNo;
+        this.diskNo = diskNo;
+        this.baseData = baseData;
+        this.middData = middData;
+        this.dataData = dataData;
+        this.createDate = createDate;
+    }
 
-	public void setId(int id) {
-		this.id = id;
-	}
+    public String getTaxNo() {
+        return taxNo;
+    }
 
-	public String getContractCode() {
-		return contractCode;
-	}
+    public void setTaxNo(String taxNo) {
+        this.taxNo = taxNo;
+    }
 
-	public void setContractCode(String contractCode) {
-		this.contractCode = contractCode;
-	}
+    public String getDiskNo() {
+        return diskNo;
+    }
 
-	public String getCreateTime() {
-		return createTime;
-	}
+    public void setDiskNo(String diskNo) {
+        this.diskNo = diskNo;
+    }
 
-	public void setCreateTime(String createTime) {
-		this.createTime = createTime;
-	}
+    public String getBaseData() {
+        return baseData;
+    }
 
-	@Override
-	public String toString() {
-		return "CountBean{" +
-				"id=" + id +
-				", contractCode='" + contractCode + '\'' +
-				", createTime='" + createTime + '\'' +
-				'}';
-	}
+    public void setBaseData(String baseData) {
+        this.baseData = baseData;
+    }
+
+    public String getMiddData() {
+        return middData;
+    }
+
+    public void setMiddData(String middData) {
+        this.middData = middData;
+    }
+
+    public String getDataData() {
+        return dataData;
+    }
+
+    public void setDataData(String dataData) {
+        this.dataData = dataData;
+    }
+
+    public String getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(String createDate) {
+        this.createDate = createDate;
+    }
 }
