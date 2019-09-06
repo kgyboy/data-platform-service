@@ -64,11 +64,11 @@ function renderTableListHTML(_list) {
         for (var i = 0; i < _list.countBeans.length; i++) {
             var item = _list.countBeans[i];
             str += '<tr>';
-            str += '<td onclick="jump(\'' + item.taxNo + '\')">' + (item.taxNo == undefined ? "" : item.taxNo) + '</td>';
-            str += '<td>' + (item.diskNo == undefined ? "" : item.diskNo) + '</td>';
-            str += '<td>' + (item.baseData == undefined ? "" : item.baseData) + '</td>';
-            str += '<td>' + (item.middData == undefined ? "" : item.middData) + '</td>';
-            str += '<td>' + (item.dataData == undefined ? "" : item.dataData) + '</td>';
+            str += '<td onclick="jump(\'' + item.taxno + '\')">' + (item.taxno == undefined ? "" : item.taxno) + '</td>';
+            str += '<td>' + (item.diskno == undefined ? "" : item.diskno) + '</td>';
+            str += '<td>' + (item.spcount == undefined ? "" : item.spcount) + '</td>';
+            str += '<td>' + (item.midcount == undefined ? "" : item.midcount) + '</td>';
+            str += '<td>' + (item.dsjcount == undefined ? "" : item.dsjcount) + '</td>';
             str += '<td>' + paramJson.startDate + '</td>';
             str += '<td>' + paramJson.endDate + '</td>';
             str += '</tr>';

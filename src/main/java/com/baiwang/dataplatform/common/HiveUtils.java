@@ -1,5 +1,8 @@
 package com.baiwang.dataplatform.common;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -13,37 +16,17 @@ import java.util.List;
  * @Author yangsibiao
  * @Date 2019/9/2
  **/
+@Service
 public final class HiveUtils {
-	// 此方法实现所有的增删改操作
-	public static int update(String sql, PreparedStatementSetter setter) {
-		int res = 0;
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		try {
-			conn = ConnectionFactory.getConnection();
-			pstmt = conn.prepareStatement(sql);
-			// 补全sql语句
-			if (setter != null) {
-				setter.setValues(pstmt);
-			}
-			res = pstmt.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			closeAll(null, pstmt, conn);
-		}
-		return res;
-
-	}
+	@Autowired
+	private Connection conn;
 
 	// 泛型方法,返回的是一个集合
-	public static <T> List<T> query(String sql, PreparedStatementSetter setter, ResultSetHandler<T> handler) {
-		Connection conn = null;
+	public <T> List<T> query(String sql, PreparedStatementSetter setter, ResultSetHandler<T> handler) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		List<T> dataList = null;
 		try {
-			conn = ConnectionFactory.getConnection();
 			pstmt = conn.prepareStatement(sql);
 			if (setter != null) {
 				setter.setValues(pstmt);
@@ -58,20 +41,18 @@ public final class HiveUtils {
 			}
 		} catch (Exception e) {
 		} finally {
-			closeAll(null, pstmt, conn);
+			closeAll(rs, pstmt, null);
 		}
 
 		return dataList;
 	}
 
 	// 查询返回单个值
-	public static <T> T singleQuery(String sql, PreparedStatementSetter setter, ResultSetHandler<T> handler) {
-		Connection conn = null;
+	public <T> T singleQuery(String sql, PreparedStatementSetter setter, ResultSetHandler<T> handler) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		T data = null;
 		try {
-			conn = ConnectionFactory.getConnection();
 			pstmt = conn.prepareStatement(sql);
 			if (setter != null) {
 				setter.setValues(pstmt);
@@ -85,13 +66,13 @@ public final class HiveUtils {
 			}
 		} catch (Exception e) {
 		} finally {
-			closeAll(null, pstmt, conn);
+			closeAll(rs, pstmt, null);
 		}
 		return data;
 	}
 
 	// 关闭
-	public static void closeAll(ResultSet rs, PreparedStatement pstmt, Connection conn) {
+	public void closeAll(ResultSet rs, PreparedStatement pstmt, Connection conn) {
 		try {
 			if (rs != null) {
 				rs.close();
@@ -106,13 +87,13 @@ public final class HiveUtils {
 		}
 	}
 
-	public static interface PreparedStatementSetter {
+	public  interface PreparedStatementSetter {
 		// 对带不同占位符的sql语句进行替换补全的操作
 		public void setValues(PreparedStatement pstmt) throws SQLException;
 	}
 
 	// 对处理不同的结果集进行抽象
-	public static interface ResultSetHandler<T> {
+	public  interface ResultSetHandler<T> {
 		// 处理结果集返回一个对象
 		public T processRs(ResultSet rs) throws SQLException;
 	}

@@ -1,71 +1,70 @@
 package com.baiwang.dataplatform.entity;
 
 public class CountBean {
-    private String taxNo;
-    private String diskNo;
-    private String baseData;
-    private String middData;
-    private String dataData;
-    private String createDate;
-
+    private String taxno;
+    private String diskno;
+    private String spcount;
+    private String midcount;
+    private String dsjcount;
+    private String kprq;
 
     public CountBean() {
     }
 
-    public CountBean(String taxNo, String diskNo, String baseData, String middData, String dataData, String createDate) {
-        this.taxNo = taxNo;
-        this.diskNo = diskNo;
-        this.baseData = baseData;
-        this.middData = middData;
-        this.dataData = dataData;
-        this.createDate = createDate;
+    public CountBean(String taxno, String diskno, String spcount, String midcount, String dsjcount, String kprq) {
+        this.taxno = taxno;
+        this.diskno = diskno;
+        this.spcount = spcount;
+        this.midcount = midcount;
+        this.dsjcount = dsjcount;
+        this.kprq = kprq;
     }
 
-    public String getTaxNo() {
-        return taxNo;
+    public String getTaxno() {
+        return taxno;
     }
 
-    public void setTaxNo(String taxNo) {
-        this.taxNo = taxNo;
+    public void setTaxno(String taxno) {
+        this.taxno = taxno;
     }
 
-    public String getDiskNo() {
-        return diskNo;
+    public String getDiskno() {
+        return diskno;
     }
 
-    public void setDiskNo(String diskNo) {
-        this.diskNo = diskNo;
+    public void setDiskno(String diskno) {
+        this.diskno = diskno;
     }
 
-    public String getBaseData() {
-        return baseData;
+    public String getSpcount() {
+        return spcount;
     }
 
-    public void setBaseData(String baseData) {
-        this.baseData = baseData;
+    public void setSpcount(String spcount) {
+        this.spcount = spcount;
     }
 
-    public String getMiddData() {
-        return middData;
+    public String getMidcount() {
+        return midcount;
     }
 
-    public void setMiddData(String middData) {
-        this.middData = middData;
+    public void setMidcount(String midcount) {
+        this.midcount = midcount;
     }
 
-    public String getDataData() {
-        return dataData;
+    public String getDsjcount() {
+        return dsjcount;
     }
 
-    public void setDataData(String dataData) {
-        this.dataData = dataData;
+    public void setDsjcount(String dsjcount) {
+        this.dsjcount = dsjcount;
     }
 
-    public String getCreateDate() {
-        return createDate;
+    public String getKprq() {
+        return kprq;
     }
 
-    public void setCreateDate(String createDate) {
-        this.createDate = createDate;
+    public void setKprq(String kprq) {
+        this.kprq = kprq;
     }
 }

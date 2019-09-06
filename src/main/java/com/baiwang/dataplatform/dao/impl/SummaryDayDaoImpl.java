@@ -6,6 +6,7 @@ import com.baiwang.dataplatform.common.StringUtils;
 import com.baiwang.dataplatform.dao.SummaryDayDao;
 import com.baiwang.dataplatform.entity.CountBean;
 import com.baiwang.dataplatform.entity.CountBeanIn;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.PreparedStatement;
@@ -23,8 +24,11 @@ import java.util.List;
  **/
 @Service
 public class SummaryDayDaoImpl implements SummaryDayDao {
-    private static String TABLENAME = "datacenter";
-    private static String FILED = "TAXNO,DISKNO,BASEDATA,MIDDDATA,DATADATA,DATE_FORMAT(CREATEDATE,\"%Y-%m-%d\") AS CREATEDATE";
+    @Autowired
+    private HiveUtils hiveUtils;
+
+    private static String TABLENAME = "check_klmy_sumdata";
+    private static String FILED = "TAXNO,DISKNO,SPCOUNT,MIDCOUNT,DSJCOUNT,DATE_FORMAT(KPRQ,\"%Y-%m-%d\") AS KPRQ";
 
     @Override
     public List<CountBean> queryDay(CountBeanIn countBeanIn) {
@@ -33,7 +37,7 @@ public class SummaryDayDaoImpl implements SummaryDayDao {
         if (countBeanIn != null) {
             sql = dealSql(sql, list, countBeanIn);
         }
-        return HiveUtils.query(sql, new HiveUtils.PreparedStatementSetter() {
+        return hiveUtils.query(sql, new HiveUtils.PreparedStatementSetter() {
             @Override
             public void setValues(PreparedStatement pstmt) throws SQLException {
                 for (BeanProperty bean : list) {
@@ -45,10 +49,10 @@ public class SummaryDayDaoImpl implements SummaryDayDao {
             public CountBean processRs(ResultSet rs) throws SQLException {
                 return new CountBean(rs.getString("TAXNO"),
                         rs.getString("DISKNO"),
-                        rs.getString("BASEDATA"),
-                        rs.getString("MIDDDATA"),
-                        rs.getString("DATADATA"),
-                        rs.getString("CREATEDATE")
+                        rs.getString("SPCOUNT"),
+                        rs.getString("MIDCOUNT"),
+                        rs.getString("DSJCOUNT"),
+                        rs.getString("KPRQ")
                 );
             }
         });
@@ -61,7 +65,7 @@ public class SummaryDayDaoImpl implements SummaryDayDao {
         if (countBeanIn != null) {
             sql = dealSql(sql, list, null);
         }
-        return HiveUtils.singleQuery(sql, new HiveUtils.PreparedStatementSetter() {
+        return hiveUtils.singleQuery(sql, new HiveUtils.PreparedStatementSetter() {
             @Override
             public void setValues(PreparedStatement pstmt) throws SQLException {
                 for (BeanProperty bean : list) {
@@ -116,14 +120,14 @@ public class SummaryDayDaoImpl implements SummaryDayDao {
             property = new BeanProperty();
             property.setIndex(i++);
             property.setPropertyName("startDate");
-            property.setPropertySql(" DATE_FORMAT(CREATEDATE, \"%Y-%m-%d\")>=?");
+            property.setPropertySql(" DATE_FORMAT(KPRQ, \"%Y-%m-%d\")>=?");
             list.add(property);
         }
         if (StringUtils.isNotBlank(countBeanIn.getEndDate())) {
             property = new BeanProperty();
             property.setIndex(i++);
             property.setPropertyName("endDate");
-            property.setPropertySql(" DATE_FORMAT(CREATEDATE, \"%Y-%m-%d\")<=?");
+            property.setPropertySql(" DATE_FORMAT(KPRQ, \"%Y-%m-%d\")<=?");
             list.add(property);
         }
         return list;

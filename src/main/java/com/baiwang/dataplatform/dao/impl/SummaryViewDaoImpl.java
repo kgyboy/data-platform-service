@@ -7,6 +7,7 @@ import com.baiwang.dataplatform.dao.SummaryViewDao;
 import com.baiwang.dataplatform.entity.CountBean;
 import com.baiwang.dataplatform.entity.CountBeanIn;
 import com.baiwang.dataplatform.entity.CountDayByDayIn;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.PreparedStatement;
@@ -24,16 +25,19 @@ import java.util.List;
  **/
 @Service
 public class SummaryViewDaoImpl implements SummaryViewDao {
-    private static String TABLENAME = "datacenter";
-    private static String FILED = "TAXNO,DISKNO,SUM(BASEDATA) AS BASEDATA,SUM(MIDDDATA) AS MIDDDATA,SUM(DATADATA) AS DATADATA," +
-            "CASE WHEN SUM(BASEDATA) / SUM(MIDDDATA) > 1 THEN '>100%'" +
-            "WHEN SUM(BASEDATA) / SUM(MIDDDATA) = 1 THEN '100%'" +
-            "WHEN SUM(BASEDATA) / SUM(MIDDDATA) < 1 AND SUM(BASEDATA) / SUM(MIDDDATA) >= 0.8 THEN '80%-100%'" +
+    @Autowired
+    private HiveUtils hiveUtils;
+
+    private static String TABLENAME = "check_klmy_sumdata";
+    private static String FILED = "TAXNO,DISKNO,SUM(SPCOUNT) AS SPCOUNT,SUM(MIDCOUNT) AS MIDCOUNT,SUM(DSJCOUNT) AS DSJCOUNT," +
+            "CASE WHEN SUM(SPCOUNT) / SUM(MIDCOUNT) > 1 THEN '>100%'" +
+            "WHEN SUM(SPCOUNT) / SUM(MIDCOUNT) = 1 THEN '100%'" +
+            "WHEN SUM(SPCOUNT) / SUM(MIDCOUNT) < 1 AND SUM(SPCOUNT) / SUM(MIDCOUNT) >= 0.8 THEN '80%-100%'" +
             "ELSE '<80%'" +
             "END AS BM," +
-            "CASE WHEN SUM(MIDDDATA) / SUM(DATADATA) > 1 THEN '>100%'" +
-            "WHEN SUM(MIDDDATA) / SUM(DATADATA) = 1 THEN '100%'" +
-            "WHEN SUM(MIDDDATA) / SUM(DATADATA) < 1 AND SUM(MIDDDATA) / SUM(DATADATA) >= 0.8 THEN '80%-100%'" +
+            "CASE WHEN SUM(MIDCOUNT) / SUM(DSJCOUNT) > 1 THEN '>100%'" +
+            "WHEN SUM(MIDCOUNT) / SUM(DSJCOUNT) = 1 THEN '100%'" +
+            "WHEN SUM(MIDCOUNT) / SUM(DSJCOUNT) < 1 AND SUM(MIDCOUNT) / SUM(DSJCOUNT) >= 0.8 THEN '80%-100%'" +
             "ELSE '<80%'" +
             "END AS MD";
 
@@ -44,7 +48,7 @@ public class SummaryViewDaoImpl implements SummaryViewDao {
         List<BeanProperty> list = analysisCountBeanIn(countDayByDayIn);
         sql = dealSumSql(sql, list, countDayByDayIn);
 
-        return HiveUtils.query(sql, new HiveUtils.PreparedStatementSetter() {
+        return hiveUtils.query(sql, new HiveUtils.PreparedStatementSetter() {
             @Override
             public void setValues(PreparedStatement pstmt) throws SQLException {
                 for (BeanProperty bean : list) {
@@ -56,9 +60,9 @@ public class SummaryViewDaoImpl implements SummaryViewDao {
             public CountBean processRs(ResultSet rs) throws SQLException {
                 return new CountBean(rs.getString("TAXNO"),
                         rs.getString("DISKNO"),
-                        rs.getString("BASEDATA"),
-                        rs.getString("MIDDDATA"),
-                        rs.getString("DATADATA"),
+                        rs.getString("SPCOUNT"),
+                        rs.getString("MIDCOUNT"),
+                        rs.getString("DSJCOUNT"),
                         null
                 );
             }
@@ -71,7 +75,7 @@ public class SummaryViewDaoImpl implements SummaryViewDao {
         List<BeanProperty> list = analysisCountBeanIn(countDayByDayIn);
         sql = dealSumSql(sql, list, null);
         sql = "SELECT COUNT(1) FROM (" + sql + " ) AS a WHERE " + countDayByDayIn.getName() + " = '" + countDayByDayIn.getValue() + "'";
-        return HiveUtils.singleQuery(sql, new HiveUtils.PreparedStatementSetter() {
+        return hiveUtils.singleQuery(sql, new HiveUtils.PreparedStatementSetter() {
             @Override
             public void setValues(PreparedStatement pstmt) throws SQLException {
                 for (BeanProperty bean : list) {
@@ -127,14 +131,14 @@ public class SummaryViewDaoImpl implements SummaryViewDao {
             property = new BeanProperty();
             property.setIndex(i++);
             property.setPropertyName("startDate");
-            property.setPropertySql(" DATE_FORMAT(CREATEDATE, \"%Y-%m-%d\")>=?");
+            property.setPropertySql(" DATE_FORMAT(KPRQ, \"%Y-%m-%d\")>=?");
             list.add(property);
         }
         if (StringUtils.isNotBlank(countBeanIn.getEndDate())) {
             property = new BeanProperty();
             property.setIndex(i++);
             property.setPropertyName("endDate");
-            property.setPropertySql(" DATE_FORMAT(CREATEDATE, \"%Y-%m-%d\")<=?");
+            property.setPropertySql(" DATE_FORMAT(KPRQ, \"%Y-%m-%d\")<=?");
             list.add(property);
         }
         return list;
