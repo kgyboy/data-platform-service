@@ -7,9 +7,11 @@
 <script type="text/javascript" th:src="@{js/index/index.js}"></script>
 <script type="text/javascript" th:src="@{js/common/jquery.page.js}"></script>
 <script type="text/javascript" th:src="@{js/common/DateFormat.js}"></script>
+<script type="text/javascript" th:src="@{js/common/pikaday.min.js}"></script>
 
 <link type="text/css" rel="stylesheet" th:href="@{css/common/table.css}"/>
 <link type="text/css" rel="stylesheet" th:href="@{css/common/page.css}"/>
+<link type="text/css" rel="stylesheet" th:href="@{css/common/pikaday.css}"/>
 
 <head>
     <meta charset="UTF-8">
@@ -47,8 +49,28 @@
         <div class="tcdPageCode" id="pager"></div>
     </div>
 </div>
-<div id="container1" style="height: 150%;"></div>
-<div id="container2" style="height: 150%;"></div>
+<div id="container">
+    <div id="container1" style="height: 150%;"></div>
+    <div id="container2" style="height: 150%;"></div>
+</div>
 <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/echarts.min.js"></script>
+<script type="text/javascript">
+    var picker1 = new Pikaday(
+        {
+            field: document.getElementById('startDate'),
+            firstDay: 1,
+            minDate: new Date('2012-01-01'),
+            maxDate: new Date('2040-12-31'),
+            yearRange: [2012,2040]
+        });
+    var picker2 = new Pikaday(
+        {
+            field: document.getElementById('endDate'),
+            firstDay: 1,
+            minDate: new Date('2012-01-01'),
+            maxDate: new Date('2040-12-31'),
+            yearRange: [2012,2040]
+        });
+</script>
 </body>
 </html>

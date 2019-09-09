@@ -56,6 +56,12 @@ function getForm() {
     $("#taxno").val(taxno);
     $("#startDate").val(startDate);
     $("#endDate").val(endDate);
+    if (startDate == "" && endDate == ""){
+        var defaultenddate = new Date();
+        defaultenddate.setDate(defaultenddate.getDate()-1);
+        startDate = (defaultenddate).format("yyyy-MM-dd");
+        endDate = (defaultenddate).format("yyyy-MM-dd");
+    }
     json = {
         "pageNo": global_curpage,
         "pageSize": 1,
@@ -71,7 +77,9 @@ function renderTableListHTML(_list) {
     var str = '';
     $("#contentHTML").empty();
     if (_list.countBeans == null || _list.countBeans == "") {
-        str = "数据为空！";
+        str += '<tr><td colspan="7">';
+        str += "数据为空！";
+        str += '</td></tr>';
     } else {
         for (var i = 0; i < _list.countBeans.length; i++) {
             var item = _list.countBeans[i];

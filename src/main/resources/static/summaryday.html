@@ -4,7 +4,7 @@
 <script type="text/javascript">
     var action = localStorage.getItem("action");
     var paramJson = null;
-    if (action != null && action == "jump"){
+    if (action != null && action == "jump") {
         var params = localStorage.getItem("third");
         paramJson = JSON.parse(params);
     }
@@ -14,9 +14,11 @@
 <script type="text/javascript" src="js/index/summaryday.js"></script>
 <script type="text/javascript" src="js/common/jquery.page.js"></script>
 <script type="text/javascript" src="js/common/DateFormat.js"></script>
+<script type="text/javascript" src="js/common/pikaday.min.js"></script>
 
 <link type="text/css" rel="stylesheet" href="css/common/table.css"/>
 <link type="text/css" rel="stylesheet" href="css/common/page.css"/>
+<link type="text/css" rel="stylesheet" href="css/common/pikaday.css"/>
 
 <head>
     <meta charset="UTF-8">
@@ -52,5 +54,23 @@
 <div class="page">
     <div class="tcdPageCode" id="pager"></div>
 </div>
+<script type="text/javascript">
+    var picker1 = new Pikaday(
+        {
+            field: document.getElementById('startDate'),
+            firstDay: 1,
+            minDate: new Date('2012-01-01'),
+            maxDate: new Date('2040-12-31'),
+            yearRange: [2012,2040]
+        });
+    var picker2 = new Pikaday(
+        {
+            field: document.getElementById('endDate'),
+            firstDay: 1,
+            minDate: new Date('2012-01-01'),
+            maxDate: new Date('2040-12-31'),
+            yearRange: [2012,2040]
+        });
+</script>
 </body>
 </html>
