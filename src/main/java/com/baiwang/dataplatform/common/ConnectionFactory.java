@@ -31,8 +31,8 @@ public class ConnectionFactory {
         try {
             Class.forName(HIVE_DRIVER);
             if (conn == null)
-//                conn = DriverManager.getConnection(HIVE_URL);
-                conn = DriverManager.getConnection(HIVE_URL, HIVE_USERNAME, HIVE_PASSWORD);
+                conn = DriverManager.getConnection(HIVE_URL);
+//                conn = DriverManager.getConnection(HIVE_URL, HIVE_USERNAME, HIVE_PASSWORD);
         } catch (Exception e) {
             e.printStackTrace();
         }
